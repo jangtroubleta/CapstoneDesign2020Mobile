@@ -15,6 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="n">
+        <activity android:name=".AuditionDetailActivity"></activity>
         <activity android:name=".AuditionListActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".LoginActivity">
