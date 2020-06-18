@@ -14,9 +14,7 @@ import com.bumptech.glide.Glide
 import com.example.capstonedesign2020mobile.databinding.ItemAuditionBinding
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_audition_list.*
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_login.textView
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.nav_name
 import kotlinx.android.synthetic.main.activity_main.nav_spinner
 import kotlinx.android.synthetic.main.item_audition.view.*
