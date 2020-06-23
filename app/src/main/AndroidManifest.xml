@@ -15,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="n">
-        <activity android:name=".ResumeDetailActivity"></activity>
+        <activity android:name=".FeedbackListActivity"></activity>
+        <activity android:name=".ResumeDetailActivity" />
         <activity android:name=".ResumeListActivity" />
         <activity android:name=".AuditionDetailActivity" />
         <activity android:name=".AuditionListActivity" />

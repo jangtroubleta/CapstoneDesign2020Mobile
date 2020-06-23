@@ -47,6 +47,7 @@ class LoginActivity : AppCompatActivity() {
                             intent.putExtra("userid", dump.userid)
                             intent.putExtra("name", dump.name)
                             intent.putExtra("port", dump.port)
+                            intent.putExtra("expert_id", dump.expert_id)
                             intent.putExtra("myIp", myIp)
                             startActivity(intent)
                             finish()
@@ -61,5 +62,5 @@ class LoginActivity : AppCompatActivity() {
         }
     }
     data class JsonObj(val result : List<User>)
-    data class User (val id: String, val userid : String, val name : String, val port : String)
+    data class User (val id: String, val userid : String, val name : String, val port : String, val expert_id : String)
 }

@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
         val userid = intent.getStringExtra("userid").toString()
         val name = intent.getStringExtra("name").toString()
         val port = intent.getStringExtra("port").toString()
+        val expert_id = intent.getStringExtra("expert_id")
         val myIp = intent.getSerializableExtra("myIp") as EditIp
 
         nav_name.text = name + " 님"
@@ -47,6 +48,48 @@ class MainActivity : AppCompatActivity() {
         if (port == "1" || port == "2") {
             card_myAudition.visibility = View.GONE
             card_myFeedback.visibility = View.VISIBLE
+
+            val fbList = arrayListOf<Feedback>()
+
+            card_myFeedback.setOnClickListener {
+
+                val url = "http://${myIp.ip}:8000/mobile/services/FeedbackList.php?expert_id=$expert_id"
+                val client = OkHttpClient()
+                val request = Request.Builder().url(url).build()
+
+                client.newCall(request).enqueue(object : Callback {
+                    override fun onFailure(call: Call, e: IOException) {
+                        println("실패함~~~~~~~~~~~~~~~~~~~~~~~")
+                        println(e)
+                    }
+
+                    override fun onResponse(call: Call, response: Response) {
+                        println("성공함~~~~~~~~~~~~~~~~~~")
+                        val body = response?.body()?.string()
+                        //Gson으로 파싱
+                        val gson = GsonBuilder().create()
+                        val list = gson.fromJson(body, FeedbackJsonObj::class.java)
+
+                        println(list.result)
+                        println("----------------------")
+                        for (res in list.result) {
+                            fbList.add(Feedback(res.id, res.name, res.title, res.date, res.answer))
+                            println(fbList)
+                        }
+
+                        val intent = Intent(this@MainActivity, FeedbackListActivity::class.java)
+                        intent.putExtra("id", id)
+                        intent.putExtra("userid", userid)
+                        intent.putExtra("name", name)
+                        intent.putExtra("expert_id", expert_id)
+                        intent.putExtra("fbList", fbList)
+                        intent.putExtra("myIp", myIp)
+                        startActivity(intent)
+                        finish()
+                    }
+                })
+
+            }
 
         } else if (port == "3") {
             card_myAudition.visibility = View.VISIBLE
@@ -96,4 +139,5 @@ class MainActivity : AppCompatActivity() {
         }
     }
     data class AudJsonObj(val result : List<Audition>)
+    data class FeedbackJsonObj(val result : List<Feedback>)
 }
