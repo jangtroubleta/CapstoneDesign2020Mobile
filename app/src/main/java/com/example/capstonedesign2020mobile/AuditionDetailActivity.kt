@@ -68,6 +68,7 @@ class AuditionDetailActivity : AppCompatActivity() {
         aud_detail_address.text = address
         aud_detail_content.text = content
 
+//        aud_detail_video.setVideoPath("http://${myIp.ip}:8000/videos/$video.mp4")
         aud_detail_video.setVideoPath("http://${myIp.ip}:8000/mobile/videos/$video.mp4")
         var mediaController: MediaController = MediaController(this)
         mediaController.setAnchorView(aud_detail_video)

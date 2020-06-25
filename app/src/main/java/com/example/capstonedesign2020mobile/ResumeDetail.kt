@@ -14,5 +14,6 @@ data class ResumeDetail (
     val score : String,
     val message : String,
     val result : String,
-    val audition_id : String
+    val audition_id : String,
+    val video : String
 ) : Serializable

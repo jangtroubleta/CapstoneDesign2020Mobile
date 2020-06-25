@@ -181,13 +181,13 @@
 
                     <Button
                         android:id="@+id/fb_detail_button1"
-                        android:layout_width="wrap_content"
+                        android:layout_width="150dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="32dp"
                         android:background="@drawable/btn_red"
-                        android:textColor="#ffffff"
                         android:text="피드백 작성하기"
+                        android:textColor="#ffffff"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/textView32"
                         app:layout_constraintStart_toStartOf="@+id/textView32"

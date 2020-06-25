@@ -59,7 +59,8 @@ class FeedbackDetailActivity : AppCompatActivity() {
         fb_detail_image.clipToOutline = true
         fb_detail_name.text = feedback.name
         fb_detail_date.text = feedback.date
-        fb_detail_video.setVideoPath("http://${myIp.ip}:8000/mobile/videos/feedback_sample_data.mp4")
+        fb_detail_video.setVideoPath("http://${myIp.ip}:8000/storage/${feedback.video}")
+//        fb_detail_video.setVideoPath("http://${myIp.ip}:8000/mobile/videos/feedback_sample_data.mp4")
         var mediaController: MediaController = MediaController(this)
         mediaController.setAnchorView(fb_detail_video)
         fb_detail_video.setMediaController(mediaController)

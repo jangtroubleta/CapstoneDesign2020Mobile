@@ -2,11 +2,13 @@ package com.example.capstonedesign2020mobile
 
 import android.content.Intent
 import android.graphics.Color
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.MediaController
 import com.bumptech.glide.Glide
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_resume_detail.*
@@ -71,6 +73,14 @@ class ResumeDetailActivity : AppCompatActivity() {
         } else {
             resume_detail_result.text = "심사중.."
         }
+
+        resume_detail_video.setVideoPath("http://${myIp.ip}:8000/storage/${resume.video}")
+        var mediaController: MediaController = MediaController(this)
+        mediaController.setAnchorView(resume_detail_video)
+        resume_detail_video.setMediaController(mediaController)
+        resume_detail_video.setOnErrorListener(MediaPlayer.OnErrorListener { arg0, arg1, arg2 -> // 예외처리 로직 ....
+            true
+        })
 
         fun postResume(result: String) {
             val url = "http://${myIp.ip}:8000/mobile/services/ResumeDetail2.php?id=${resume.id}&res=${result}&audition_id=${resume.audition_id}"
