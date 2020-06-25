@@ -2,10 +2,13 @@ package com.example.capstonedesign2020mobile
 
 import java.io.Serializable
 
-data class Feedback(
+data class FeedbackDetail(
     val id: String,
+    val title: String,
+    val date: String,
+    val image: String,
     val name: String,
-    val title : String,
-    val date : String,
+    val video: String,
+    val content: String,
     val answer : String?
 ) : Serializable

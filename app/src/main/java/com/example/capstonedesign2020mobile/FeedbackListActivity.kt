@@ -12,11 +12,11 @@ import android.widget.ArrayAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.capstonedesign2020mobile.databinding.ItemFeedbackBinding
+import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_feedback_list.*
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.nav_name
-import kotlinx.android.synthetic.main.activity_main.nav_spinner
 import kotlinx.android.synthetic.main.item_feedback.view.*
+import okhttp3.*
+import java.io.IOException
 
 class FeedbackListActivity : AppCompatActivity() {
 
@@ -58,39 +58,44 @@ class FeedbackListActivity : AppCompatActivity() {
             adapter = FeedbackAdapter(fbList) {feedback ->
                 println("-----------------------------------------------------")
                 println(feedback)
-//                var id = audition.id
-//                val url = "http://${myIp.ip}:8000/mobile/services/AuditionDetail.php?id=$id"
-//                val client = OkHttpClient()
-//                val request = Request.Builder().url(url).build()
-//
-//                client.newCall(request).enqueue(object : Callback {
-//                    override fun onFailure(call: Call, e: IOException) {
-//                        println("실패함~~~~~~~~~~~~~~~~~~~~~~~")
-//                        println(e)
-//                    }
-//
-//                    override fun onResponse(call: Call, response: Response) {
-//                        println("성공함~~~~~~~~~~~~~~~~~~")
-//                        val body = response?.body()?.string()
-//                        //Gson으로 파싱
-//                        val gson = GsonBuilder().create()
-//                        val list = gson.fromJson(body, JsonObj::class.java)
-//
-//                        println(list.result)
-//                        println("----------------------")
-//                        val intent = Intent(this@AuditionListActivity, AuditionDetailActivity::class.java)
-//                        intent.putExtra("myIp", myIp)
-//                        startActivity(intent)
-//
-//                    }
-//                })
+                var fbId = feedback.id
+                val url = "http://${myIp.ip}:8000/mobile/services/FeedbackDetail.php?id=$fbId"
+                val client = OkHttpClient()
+                val request = Request.Builder().url(url).build()
+
+                client.newCall(request).enqueue(object : Callback {
+                    override fun onFailure(call: Call, e: IOException) {
+                        println("실패함~~~~~~~~~~~~~~~~~~~~~~~")
+                        println(e)
+                    }
+
+                    override fun onResponse(call: Call, response: Response) {
+                        println("성공함~~~~~~~~~~~~~~~~~~")
+                        val body = response?.body()?.string()
+                        //Gson으로 파싱
+                        val gson = GsonBuilder().create()
+                        val list = gson.fromJson(body, JsonObj::class.java)
+
+                        println(list.result)
+                        println("----------------------")
+                        val intent = Intent(this@FeedbackListActivity, FeedbackDetailActivity::class.java)
+                        intent.putExtra("id", id)
+                        intent.putExtra("userid", userid)
+                        intent.putExtra("name", name)
+                        intent.putExtra("expert_id", expert_id)
+                        intent.putExtra("feedback", list.result[0])
+                        intent.putExtra("myIp", myIp)
+                        startActivity(intent)
+
+                    }
+                })
 
             }
 
         }
 
     }
-    data class JsonObj(val result : List<AuditionDetail>)
+    data class JsonObj(val result : List<FeedbackDetail>)
 }
 
 class FeedbackAdapter(val items: List<Feedback>, private val clickListener: (feedback: Feedback)-> Unit) : RecyclerView.Adapter<FeedbackAdapter.FeedbackViewHolder>() {
